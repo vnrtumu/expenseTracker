@@ -1,4 +1,22 @@
 {
   "name": "ExpenseTracker",
-  "displayName": "ExpenseTracker"
+  "displayName": "ExpenseTracker",
+  "version": "0.0.1",
+  "extra": {
+    "eas": {
+      "projectId": "660ccd2d-9ff1-4323-926a-227be853219b"
+    }
+  },
+  "owner": "venkat690",
+  "expo": {
+    "name": "ExpenseTracker",
+    "slug": "expensetracker",
+    "version": "0.0.1",
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/660ccd2d-9ff1-4323-926a-227be853219b"
+    }
+  }
 }
