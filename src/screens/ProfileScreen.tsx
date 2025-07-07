@@ -34,6 +34,8 @@ const ProfileScreen = ({ navigation }: { navigation: any }) => {
       onPress={() => {
         if (item.name === 'Invite Friends') {
           navigation.navigate('VirtualizedList');
+        } else if (item.name === 'Account info') {
+          navigation.navigate('DragAndDrop');
         }
       }}
     >

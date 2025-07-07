@@ -12,6 +12,7 @@ import AddTransactionScreen from '../screens/AddTransactionScreen';
 import BudgetScreen from '../screens/BudgetScreen';
 import ProfileScreen from '../screens/ProfileScreen';
 import VirtualizedListScreen from '../screens/VirtualizedListScreen';
+import DragAndDropScreen from '../screens/DragAndDropScreen';
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -128,6 +129,17 @@ const AppNavigator = () => {
         options={{
           headerShown: true,
           title: 'VirtualizedList Example',
+          headerStyle: { backgroundColor: '#3D8B8B' },
+          headerTintColor: '#fff',
+          headerTitleStyle: { fontWeight: 'bold' },
+        }}
+      />
+      <Stack.Screen
+        name="DragAndDrop"
+        component={DragAndDropScreen}
+        options={{
+          headerShown: true,
+          title: 'Drag and Drop',
           headerStyle: { backgroundColor: '#3D8B8B' },
           headerTintColor: '#fff',
           headerTitleStyle: { fontWeight: 'bold' },
