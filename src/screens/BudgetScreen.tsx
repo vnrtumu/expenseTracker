@@ -1,5 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text, View, FlatList, SafeAreaView } from 'react-native';
+import { normalize } from '../utils/scaling';
 
 const BudgetScreen = () => {
   // Mock data for budget categories

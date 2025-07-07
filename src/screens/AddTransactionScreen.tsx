@@ -8,8 +8,9 @@ import {
   SafeAreaView,
   Alert,
 } from 'react-native';
+import { normalize } from '../utils/scaling';
 
-const AddTransactionScreen = ({ navigation }) => {
+const AddTransactionScreen = ({ navigation }: { navigation: any }) => {
   const [description, setDescription] = useState('');
   const [amount, setAmount] = useState('');
   const [type, setType] = useState('expense'); // 'expense' or 'income'
