@@ -1,9 +1,17 @@
 import React from 'react';
 import { StyleSheet, Text, View, FlatList, SafeAreaView } from 'react-native';
+import { normalize } from '../utils/scaling';
+
+interface Transaction {
+  id: string;
+  description: string;
+  amount: number;
+  date: string;
+}
 
 const TransactionsScreen = () => {
   // Mock data for all transactions
-  const allTransactions = [
+  const allTransactions: Transaction[] = [
     { id: '1', description: 'Groceries', amount: -50.0, date: '2025-06-20' },
     { id: '2', description: 'Salary', amount: 2000.0, date: '2025-06-19' },
     { id: '3', description: 'Rent', amount: -800.0, date: '2025-06-18' },
@@ -17,7 +25,7 @@ const TransactionsScreen = () => {
     { id: '6', description: 'Dinner Out', amount: -75.0, date: '2025-06-16' },
   ];
 
-  const renderTransaction = ({ item }) => (
+    const renderTransaction = ({ item }: { item: Transaction }) => (
     <View style={styles.transactionItem}>
       <View>
         <Text style={styles.transactionDescription}>{item.description}</Text>
@@ -51,47 +59,47 @@ const styles = StyleSheet.create({
   },
   header: {
     backgroundColor: '#6200ee',
-    padding: 20,
-    paddingTop: 40,
+    padding: normalize(20),
+    paddingTop: normalize(40),
     alignItems: 'center',
   },
   headerTitle: {
     color: '#fff',
-    fontSize: 24,
+    fontSize: normalize(24),
     fontWeight: 'bold',
   },
   transactionList: {
     flex: 1,
-    marginHorizontal: 10,
-    marginTop: 10,
+    marginHorizontal: normalize(10),
+    marginTop: normalize(10),
   },
   transactionItem: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    padding: 15,
+    padding: normalize(15),
     backgroundColor: '#fff',
     borderBottomWidth: 1,
     borderBottomColor: '#eee',
-    borderRadius: 5,
-    marginBottom: 10,
+    borderRadius: normalize(5),
+    marginBottom: normalize(10),
   },
   transactionDescription: {
-    fontSize: 16,
+    fontSize: normalize(16),
     fontWeight: '500',
   },
   transactionDate: {
-    fontSize: 12,
+    fontSize: normalize(12),
     color: '#888',
-    marginTop: 4,
+    marginTop: normalize(4),
   },
   incomeText: {
-    fontSize: 16,
+    fontSize: normalize(16),
     color: '#4caf50',
     fontWeight: 'bold',
   },
   expenseText: {
-    fontSize: 16,
+    fontSize: normalize(16),
     color: '#f44336',
     fontWeight: 'bold',
   },

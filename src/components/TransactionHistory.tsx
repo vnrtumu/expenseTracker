@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, Text, StyleSheet, FlatList, Image, TouchableOpacity } from 'react-native';
+import { normalize } from '../utils/scaling';
 
 const transactions = [
   {
@@ -71,59 +72,59 @@ const TransactionHistory = () => {
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: 30,
-    paddingHorizontal: 20,
+    marginTop: normalize(30),
+    paddingHorizontal: normalize(20),
   },
   header: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginBottom: 15,
+    marginBottom: normalize(15),
   },
   title: {
-    fontSize: 20,
+    fontSize: normalize(20),
     fontWeight: 'bold',
     color: '#333',
   },
   seeAll: {
-    fontSize: 14,
+    fontSize: normalize(14),
     color: '#3D8B8B',
   },
   itemContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    paddingVertical: 10,
+    paddingVertical: normalize(10),
     backgroundColor: '#fff',
-    borderRadius: 15,
-    padding: 15,
-    marginBottom: 10,
+    borderRadius: normalize(15),
+    padding: normalize(15),
+    marginBottom: normalize(10),
   },
   logo: {
-    width: 40,
-    height: 40,
-    borderRadius: 10,
-    marginRight: 15,
+    width: normalize(40),
+    height: normalize(40),
+    borderRadius: normalize(10),
+    marginRight: normalize(15),
     resizeMode: 'contain',
   },
   itemDetails: {
     flex: 1,
   },
   itemName: {
-    fontSize: 16,
+    fontSize: normalize(16),
     fontWeight: '600',
     color: '#333',
   },
   itemDate: {
-    fontSize: 12,
+    fontSize: normalize(12),
     color: '#888',
   },
   amountIncome: {
-    fontSize: 16,
+    fontSize: normalize(16),
     fontWeight: '600',
     color: '#28a745',
   },
   amountExpense: {
-    fontSize: 16,
+    fontSize: normalize(16),
     fontWeight: '600',
     color: '#dc3545',
   },

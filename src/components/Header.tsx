@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
+import { normalize } from '../utils/scaling';
 
 const Header = () => {
   return (
@@ -10,7 +11,7 @@ const Header = () => {
         <Text style={styles.userName}>Enjelin Morgeana</Text>
       </View>
       <TouchableOpacity style={styles.bellContainer}>
-        <Icon name="bell" size={24} color="#fff" />
+        <Icon name="bell" size={normalize(24)} color="#fff" />
         <View style={styles.notificationDot} />
       </TouchableOpacity>
     </View>
@@ -19,19 +20,19 @@ const Header = () => {
 
 const styles = StyleSheet.create({
   container: {
-    paddingTop: 50,
-    paddingHorizontal: 20,
+    paddingTop: normalize(50),
+    paddingHorizontal: normalize(20),
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
   },
   greeting: {
     color: '#fff',
-    fontSize: 16,
+    fontSize: normalize(16),
   },
   userName: {
     color: '#fff',
-    fontSize: 20,
+    fontSize: normalize(20),
     fontWeight: 'bold',
   },
   bellContainer: {
@@ -39,11 +40,11 @@ const styles = StyleSheet.create({
   },
   notificationDot: {
     position: 'absolute',
-    top: 2,
-    right: 2,
-    width: 8,
-    height: 8,
-    borderRadius: 4,
+    top: normalize(2),
+    right: normalize(2),
+    width: normalize(8),
+    height: normalize(8),
+    borderRadius: normalize(4),
     backgroundColor: '#FF6347',
   },
 });

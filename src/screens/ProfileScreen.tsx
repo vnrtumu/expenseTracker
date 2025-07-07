@@ -9,6 +9,7 @@ import {
   ScrollView,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
+import { normalize } from '../utils/scaling';
 
 const ProfileScreen = ({ navigation }: { navigation: any }) => {
   const user = {
@@ -27,12 +28,20 @@ const ProfileScreen = ({ navigation }: { navigation: any }) => {
   ];
 
   const renderMenuItem = (item: any) => (
-    <TouchableOpacity key={item.name} style={styles.menuItem}>
+    <TouchableOpacity
+      key={item.name}
+      style={styles.menuItem}
+      onPress={() => {
+        if (item.name === 'Invite Friends') {
+          navigation.navigate('VirtualizedList');
+        }
+      }}
+    >
       <View style={styles.menuIconContainer}>
-        <Icon name={item.icon} size={20} color="#3D8B8B" />
+        <Icon name={item.icon} size={normalize(20)} color="#3D8B8B" />
       </View>
       <Text style={styles.menuItemText}>{item.name}</Text>
-      <Icon name="chevron-right" size={22} color="#ccc" />
+      <Icon name="chevron-right" size={normalize(22)} color="#ccc" />
     </TouchableOpacity>
   );
 
@@ -44,11 +53,11 @@ const ProfileScreen = ({ navigation }: { navigation: any }) => {
             onPress={() => navigation.goBack()}
             style={styles.headerButton}
           >
-            <Icon name="chevron-left" size={28} color="#fff" />
+            <Icon name="chevron-left" size={normalize(28)} color="#fff" />
           </TouchableOpacity>
           <Text style={styles.headerTitle}>Profile</Text>
           <TouchableOpacity style={styles.headerButton}>
-            <Icon name="bell" size={24} color="#fff" />
+            <Icon name="bell" size={normalize(24)} color="#fff" />
           </TouchableOpacity>
         </View>
 
@@ -73,64 +82,64 @@ const styles = StyleSheet.create({
   },
   header: {
     backgroundColor: '#3D8B8B',
-    height: 220,
-    paddingTop: 50,
-    paddingHorizontal: 20,
-    borderBottomLeftRadius: 40,
-    borderBottomRightRadius: 40,
+    height: normalize(220),
+    paddingTop: normalize(50),
+    paddingHorizontal: normalize(20),
+    borderBottomLeftRadius: normalize(40),
+    borderBottomRightRadius: normalize(40),
     flexDirection: 'row',
     alignItems: 'flex-start',
     justifyContent: 'space-between',
   },
   headerTitle: {
     color: '#fff',
-    fontSize: 20,
+    fontSize: normalize(20),
     fontWeight: 'bold',
   },
   headerButton: {
-    padding: 5,
+    padding: normalize(5),
   },
   profileSection: {
     alignItems: 'center',
-    marginTop: -75,
+    marginTop: normalize(-75),
   },
   avatar: {
-    width: 120,
-    height: 120,
-    borderRadius: 60,
-    borderWidth: 4,
+    width: normalize(120),
+    height: normalize(120),
+    borderRadius: normalize(60),
+    borderWidth: normalize(4),
     borderColor: '#fff',
   },
   userName: {
-    marginTop: 15,
-    fontSize: 22,
+    marginTop: normalize(15),
+    fontSize: normalize(22),
     fontWeight: 'bold',
     color: '#333',
   },
   userUsername: {
-    marginTop: 5,
-    fontSize: 16,
+    marginTop: normalize(5),
+    fontSize: normalize(16),
     color: '#3D8B8B',
   },
   menuContainer: {
-    marginTop: 20,
-    paddingHorizontal: 30,
+    marginTop: normalize(20),
+    paddingHorizontal: normalize(30),
   },
   menuItem: {
     flexDirection: 'row',
     alignItems: 'center',
-    paddingVertical: 15,
+    paddingVertical: normalize(15),
   },
   menuIconContainer: {
-    width: 40,
-    height: 40,
+    width: normalize(40),
+    height: normalize(40),
     justifyContent: 'center',
     alignItems: 'center',
-    marginRight: 15,
+    marginRight: normalize(15),
   },
   menuItemText: {
     flex: 1,
-    fontSize: 16,
+    fontSize: normalize(16),
     color: '#333',
     fontWeight: '500',
   },

@@ -1,6 +1,7 @@
 import React from 'react';
 import { StyleSheet, View, SafeAreaView, ScrollView, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
+import { normalize } from '../utils/scaling';
 import Header from '../components/Header';
 import BalanceCard from '../components/BalanceCard';
 import TransactionHistory from '../components/TransactionHistory';
@@ -21,7 +22,7 @@ const HomeScreen = ({ navigation }: { navigation: any }) => {
       </ScrollView>
 
       <TouchableOpacity style={styles.fab} onPress={() => navigation.navigate('AddTransaction')}>
-        <Icon name="plus" size={36} color="#fff" />
+        <Icon name="plus" size={normalize(36)} color="#fff" />
       </TouchableOpacity>
     </SafeAreaView>
   );
@@ -30,18 +31,18 @@ const HomeScreen = ({ navigation }: { navigation: any }) => {
 const styles = StyleSheet.create({
   fab: {
     position: 'absolute',
-    bottom: 30,
+    bottom: normalize(30),
     alignSelf: 'center',
     backgroundColor: '#3D8B8B',
-    width: 70,
-    height: 70,
-    borderRadius: 35,
+    width: normalize(70),
+    height: normalize(70),
+    borderRadius: normalize(35),
     justifyContent: 'center',
     alignItems: 'center',
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.3,
-    shadowRadius: 4,
+    shadowRadius: normalize(4),
     elevation: 8,
     zIndex: 10,
   },
@@ -51,12 +52,12 @@ const styles = StyleSheet.create({
   },
   headerContainer: {
     backgroundColor: '#3D8B8B',
-    paddingBottom: 40,
-    borderBottomLeftRadius: 40,
-    borderBottomRightRadius: 40,
+    paddingBottom: normalize(40),
+    borderBottomLeftRadius: normalize(40),
+    borderBottomRightRadius: normalize(40),
   },
   bodyContainer: {
-    marginTop: -20, // Overlap the header slightly
+    marginTop: normalize(-20), // Overlap the header slightly
   },
 
 });

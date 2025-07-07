@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet, FlatList, Image, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
+import { normalize } from '../utils/scaling';
 
 const contacts = [
   { id: '1', name: 'Anna', avatar: 'https://i.pravatar.cc/150?img=1' },
@@ -27,7 +28,7 @@ const SendAgain = () => {
       </View>
       <View style={styles.contactsList}>
         <TouchableOpacity style={styles.addButton}>
-          <Icon name="plus" size={24} color="#3D8B8B" />
+          <Icon name="plus" size={normalize(24)} color="#3D8B8B" />
         </TouchableOpacity>
         <FlatList
           data={contacts}
@@ -43,22 +44,22 @@ const SendAgain = () => {
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: 30,
-    paddingHorizontal: 20,
+    marginTop: normalize(30),
+    paddingHorizontal: normalize(20),
   },
   header: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginBottom: 15,
+    marginBottom: normalize(15),
   },
   title: {
-    fontSize: 20,
+    fontSize: normalize(20),
     fontWeight: 'bold',
     color: '#333',
   },
   seeAll: {
-    fontSize: 14,
+    fontSize: normalize(14),
     color: '#3D8B8B',
   },
   contactsList: {
@@ -66,21 +67,21 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   addButton: {
-    width: 50,
-    height: 50,
-    borderRadius: 25,
+    width: normalize(50),
+    height: normalize(50),
+    borderRadius: normalize(25),
     backgroundColor: '#e0f2f1',
     justifyContent: 'center',
     alignItems: 'center',
-    marginRight: 15,
+    marginRight: normalize(15),
   },
   contactContainer: {
-    marginRight: 15,
+    marginRight: normalize(15),
   },
   avatar: {
-    width: 50,
-    height: 50,
-    borderRadius: 25,
+    width: normalize(50),
+    height: normalize(50),
+    borderRadius: normalize(25),
   },
 });
 
