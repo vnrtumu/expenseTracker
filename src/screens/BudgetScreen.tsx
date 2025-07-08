@@ -1,8 +1,15 @@
-import React from 'react';
-import { StyleSheet, Text, View, FlatList, SafeAreaView } from 'react-native';
+import React, { useRef, useEffect } from 'react';
+import {
+  StyleSheet,
+  Text,
+  View,
+  FlatList,
+  SafeAreaView,
+  Animated,
+} from 'react-native';
 import { normalize } from '../utils/scaling';
 
-const BudgetScreen = () => {
+const BudgetScreen = ({ navigation }: { navigation: any }) => {
   // Mock data for budget categories
   const budgetData = [
     { id: '1', category: 'Groceries', budget: 400, spent: 250 },
@@ -11,7 +18,27 @@ const BudgetScreen = () => {
     { id: '4', category: 'Shopping', budget: 300, spent: 350 }, // Over budget
   ];
 
-  const renderBudgetItem = ({ item }) => {
+  const anim = useRef(new Animated.Value(0)).current;
+
+  useEffect(() => {
+    const listener = navigation.addListener('focus', () => {
+      anim.setValue(0);
+      Animated.timing(anim, {
+        toValue: 1,
+        duration: 400,
+        useNativeDriver: true,
+      }).start();
+    });
+
+    return listener;
+  }, [anim, navigation]);
+
+  const translateY = anim.interpolate({
+    inputRange: [0, 1],
+    outputRange: [30, 0], // Slide up from 30 pixels below
+  });
+
+  const renderBudgetItem = ({ item }: { item: any }) => {
     const remaining = item.budget - item.spent;
     const isOverBudget = remaining < 0;
 
@@ -45,17 +72,19 @@ const BudgetScreen = () => {
   };
 
   return (
-    <SafeAreaView style={styles.container}>
-      <View style={styles.header}>
-        <Text style={styles.headerTitle}>Budget Tracker</Text>
-      </View>
-      <FlatList
-        data={budgetData}
-        renderItem={renderBudgetItem}
-        keyExtractor={item => item.id}
-        contentContainerStyle={styles.budgetList}
-      />
-    </SafeAreaView>
+    <Animated.View style={{ flex: 1, opacity: anim, transform: [{ translateY }] }}>
+      <SafeAreaView style={styles.container}>
+        <View style={styles.header}>
+          <Text style={styles.headerTitle}>Budget Tracker</Text>
+        </View>
+        <FlatList
+          data={budgetData}
+          renderItem={renderBudgetItem}
+          keyExtractor={item => item.id}
+          contentContainerStyle={styles.budgetList}
+        />
+      </SafeAreaView>
+    </Animated.View>
   );
 };
 

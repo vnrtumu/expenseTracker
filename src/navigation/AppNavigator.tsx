@@ -116,7 +116,7 @@ const MainTabNavigator = () => {
 
 const AppNavigator = () => {
   return (
-    <Stack.Navigator screenOptions={{ headerShown: false }}>
+    <Stack.Navigator screenOptions={{ headerShown: false, animation: 'slide_from_bottom' }}>
       <Stack.Screen name="Main" component={MainTabNavigator} />
       <Stack.Screen
         name="AddTransaction"

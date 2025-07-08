@@ -1,5 +1,12 @@
-import React from 'react';
-import { StyleSheet, View, SafeAreaView, ScrollView, TouchableOpacity } from 'react-native';
+import React, { useRef, useEffect } from 'react';
+import {
+  StyleSheet,
+  View,
+  SafeAreaView,
+  ScrollView,
+  TouchableOpacity,
+  Animated,
+} from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
 import { normalize } from '../utils/scaling';
 import Header from '../components/Header';
@@ -8,23 +15,43 @@ import TransactionHistory from '../components/TransactionHistory';
 import SendAgain from '../components/SendAgain';
 
 const HomeScreen = ({ navigation }: { navigation: any }) => {
-  return (
-    <SafeAreaView style={styles.container}>
-      <ScrollView showsVerticalScrollIndicator={false}>
-        <View style={styles.headerContainer}>
-          <Header />
-          <BalanceCard />
-        </View>
-        <View style={styles.bodyContainer}>
-          <TransactionHistory />
-          <SendAgain />
-        </View>
-      </ScrollView>
+  const fadeAnim = useRef(new Animated.Value(0)).current;
 
-      <TouchableOpacity style={styles.fab} onPress={() => navigation.navigate('AddTransaction')}>
-        <Icon name="plus" size={normalize(36)} color="#fff" />
-      </TouchableOpacity>
-    </SafeAreaView>
+  useEffect(() => {
+    const listener = navigation.addListener('focus', () => {
+      fadeAnim.setValue(0);
+      Animated.timing(fadeAnim, {
+        toValue: 1,
+        duration: 400,
+        useNativeDriver: true,
+      }).start();
+    });
+
+    return listener;
+  }, [fadeAnim, navigation]);
+
+  return (
+    <Animated.View style={{ flex: 1, opacity: fadeAnim }}>
+      <SafeAreaView style={styles.container}>
+        <ScrollView showsVerticalScrollIndicator={false}>
+          <View style={styles.headerContainer}>
+            <Header />
+            <BalanceCard />
+          </View>
+          <View style={styles.bodyContainer}>
+            <TransactionHistory />
+            <SendAgain />
+          </View>
+        </ScrollView>
+
+        <TouchableOpacity
+          style={styles.fab}
+          onPress={() => navigation.navigate('AddTransaction')}
+        >
+          <Icon name="plus" size={normalize(36)} color="#fff" />
+        </TouchableOpacity>
+      </SafeAreaView>
+    </Animated.View>
   );
 };
 
@@ -59,7 +86,6 @@ const styles = StyleSheet.create({
   bodyContainer: {
     marginTop: normalize(-20), // Overlap the header slightly
   },
-
 });
 
 export default HomeScreen;

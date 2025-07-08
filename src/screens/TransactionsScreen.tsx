@@ -1,5 +1,12 @@
-import React from 'react';
-import { StyleSheet, Text, View, FlatList, SafeAreaView } from 'react-native';
+import React, { useRef, useEffect } from 'react';
+import {
+  StyleSheet,
+  Text,
+  View,
+  FlatList,
+  SafeAreaView,
+  Animated,
+} from 'react-native';
 import { normalize } from '../utils/scaling';
 
 interface Transaction {
@@ -9,7 +16,7 @@ interface Transaction {
   date: string;
 }
 
-const TransactionsScreen = () => {
+const TransactionsScreen = ({ navigation }: { navigation: any }) => {
   // Mock data for all transactions
   const allTransactions: Transaction[] = [
     { id: '1', description: 'Groceries', amount: -50.0, date: '2025-06-20' },
@@ -25,7 +32,27 @@ const TransactionsScreen = () => {
     { id: '6', description: 'Dinner Out', amount: -75.0, date: '2025-06-16' },
   ];
 
-    const renderTransaction = ({ item }: { item: Transaction }) => (
+  const anim = useRef(new Animated.Value(0)).current;
+
+  useEffect(() => {
+    const listener = navigation.addListener('focus', () => {
+      anim.setValue(0);
+      Animated.timing(anim, {
+        toValue: 1,
+        duration: 400,
+        useNativeDriver: true,
+      }).start();
+    });
+
+    return listener;
+  }, [anim, navigation]);
+
+  const translateY = anim.interpolate({
+    inputRange: [0, 1],
+    outputRange: [30, 0], // Slide up from 30 pixels below
+  });
+
+  const renderTransaction = ({ item }: { item: Transaction }) => (
     <View style={styles.transactionItem}>
       <View>
         <Text style={styles.transactionDescription}>{item.description}</Text>
@@ -38,17 +65,19 @@ const TransactionsScreen = () => {
   );
 
   return (
-    <SafeAreaView style={styles.container}>
-      <View style={styles.header}>
-        <Text style={styles.headerTitle}>All Transactions</Text>
-      </View>
-      <FlatList
-        data={allTransactions}
-        renderItem={renderTransaction}
-        keyExtractor={item => item.id}
-        style={styles.transactionList}
-      />
-    </SafeAreaView>
+    <Animated.View style={{ flex: 1, opacity: anim, transform: [{ translateY }] }}>
+      <SafeAreaView style={styles.container}>
+        <View style={styles.header}>
+          <Text style={styles.headerTitle}>All Transactions</Text>
+        </View>
+        <FlatList
+          data={allTransactions}
+          renderItem={renderTransaction}
+          keyExtractor={item => item.id}
+          style={styles.transactionList}
+        />
+      </SafeAreaView>
+    </Animated.View>
   );
 };
 

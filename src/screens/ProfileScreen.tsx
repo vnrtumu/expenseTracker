@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef, useEffect } from 'react';
 import {
   StyleSheet,
   Text,
@@ -7,11 +7,32 @@ import {
   TouchableOpacity,
   Image,
   ScrollView,
+  Animated,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
 import { normalize } from '../utils/scaling';
 
 const ProfileScreen = ({ navigation }: { navigation: any }) => {
+  const anim = useRef(new Animated.Value(0)).current;
+
+  useEffect(() => {
+    const listener = navigation.addListener('focus', () => {
+      anim.setValue(0);
+      Animated.timing(anim, {
+        toValue: 1,
+        duration: 400,
+        useNativeDriver: true,
+      }).start();
+    });
+
+    return listener;
+  }, [anim, navigation]);
+
+  const translateY = anim.interpolate({
+    inputRange: [0, 1],
+    outputRange: [30, 0], // Slide up from 30 pixels below
+  });
+
   const user = {
     name: 'Enjelin Morgeana',
     username: '@enjelin_morgeana',
@@ -48,32 +69,34 @@ const ProfileScreen = ({ navigation }: { navigation: any }) => {
   );
 
   return (
-    <SafeAreaView style={styles.container}>
-      <ScrollView showsVerticalScrollIndicator={false}>
-        <View style={styles.header}>
-          <TouchableOpacity
-            onPress={() => navigation.goBack()}
-            style={styles.headerButton}
-          >
-            <Icon name="chevron-left" size={normalize(28)} color="#fff" />
-          </TouchableOpacity>
-          <Text style={styles.headerTitle}>Profile</Text>
-          <TouchableOpacity style={styles.headerButton}>
-            <Icon name="bell" size={normalize(24)} color="#fff" />
-          </TouchableOpacity>
-        </View>
+    <Animated.View style={{ flex: 1, opacity: anim, transform: [{ translateY }] }}>
+      <SafeAreaView style={styles.container}>
+        <ScrollView showsVerticalScrollIndicator={false}>
+          <View style={styles.header}>
+            <TouchableOpacity
+              onPress={() => navigation.goBack()}
+              style={styles.headerButton}
+            >
+              <Icon name="chevron-left" size={normalize(28)} color="#fff" />
+            </TouchableOpacity>
+            <Text style={styles.headerTitle}>Profile</Text>
+            <TouchableOpacity style={styles.headerButton}>
+              <Icon name="bell" size={normalize(24)} color="#fff" />
+            </TouchableOpacity>
+          </View>
 
-        <View style={styles.profileSection}>
-          <Image source={{ uri: user.avatar }} style={styles.avatar} />
-          <Text style={styles.userName}>{user.name}</Text>
-          <Text style={styles.userUsername}>{user.username}</Text>
-        </View>
+          <View style={styles.profileSection}>
+            <Image source={{ uri: user.avatar }} style={styles.avatar} />
+            <Text style={styles.userName}>{user.name}</Text>
+            <Text style={styles.userUsername}>{user.username}</Text>
+          </View>
 
-        <View style={styles.menuContainer}>
-          {menuItems.map(renderMenuItem)}
-        </View>
-      </ScrollView>
-    </SafeAreaView>
+          <View style={styles.menuContainer}>
+            {menuItems.map(renderMenuItem)}
+          </View>
+        </ScrollView>
+      </SafeAreaView>
+    </Animated.View>
   );
 };
 
